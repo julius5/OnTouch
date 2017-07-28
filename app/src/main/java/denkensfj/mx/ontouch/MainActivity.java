@@ -16,9 +16,9 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    public int i=1;
+    public int i=1,f=1;
     SoundManager sound;
-    int sonido;
+    int sonido,gemido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 // Creamos una instancia de SoundManager
                 sound = new SoundManager(getApplicationContext());
                 sonido = sound.load(R.raw.grito);
+                gemido = sound.load(R.raw.gemido);
 
                 Log.d("valor",names[i]);
                 if (event.getAction()==MotionEvent.ACTION_DOWN) {
@@ -78,8 +79,20 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if(f==1){
+                    Snackbar.make(view, "No toques de nuevo este boton", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    f++;
+                }else if(f==2){
+                    Snackbar.make(view, "Te lo advierto ultima oporunidad", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    f++;
+                }else{
+                    Snackbar.make(view, "Te lo adverti", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    sound.play(gemido);
+                }
+
             }
         });
 
